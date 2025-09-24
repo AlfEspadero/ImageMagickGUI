@@ -124,6 +124,13 @@ class ImageMagickGUI:
 		self.output_text.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 		scrollbar.grid(row=0, column=1, sticky=(tk.N, tk.S))
 
+		# Bind common quit shortcuts: Ctrl+Q (Linux/Windows) and Command+Q (macOS)
+		# Use bind_all so it works regardless of widget focus
+		self.root.bind_all("<Control-q>", lambda e: self._on_quit())
+		self.root.bind_all("<Control-Q>", lambda e: self._on_quit())
+		self.root.bind_all("<Command-q>", lambda e: self._on_quit())
+		self.root.bind_all("<Command-Q>", lambda e: self._on_quit())
+
 	def browse_file(self):
 		"""Open file browser to select input image"""
 		file_types = [
@@ -306,6 +313,21 @@ class ImageMagickGUI:
 		self.output_text.insert(tk.END, f"{message}\n")
 		self.output_text.see(tk.END)
 		self.output_text.config(state=tk.DISABLED)
+
+	def _on_quit(self, event=None):
+		"""Handle quit shortcut; confirm if a conversion is running."""
+		if self.is_converting:
+			# Ask user to confirm aborting an ongoing conversion
+			quit_anyway = messagebox.askyesno(
+				"Quit", "A conversion is in progress. Quit anyway?"
+			)
+			if not quit_anyway:
+				return
+		# Cleanly close the app
+		try:
+			self.root.destroy()
+		except Exception:
+			pass
 
 
 def main():
