@@ -1,0 +1,89 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger on version tags like v1.0.0
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  build-and-release:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            asset_name: ImageMagick-GUI-Windows.zip
+          - os: ubuntu-latest
+            asset_name: ImageMagick-GUI-Linux.tar.gz
+          - os: macos-latest
+            asset_name: ImageMagick-GUI-macOS.zip
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+    
+    - name: Build executable (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        pyinstaller --onefile --windowed --name "ImageMagick-GUI" main.py
+        mkdir release
+        copy dist\ImageMagick-GUI.exe release\
+        copy README.md release\
+        7z a ${{ matrix.asset_name }} ./release/*
+    
+    - name: Build executable (Linux)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update && sudo apt-get install -y python3-tk
+        pyinstaller --onefile --name "ImageMagick-GUI" main.py
+        mkdir release
+        cp dist/ImageMagick-GUI release/
+        cp README.md release/
+        chmod +x release/ImageMagick-GUI
+        tar -czf ${{ matrix.asset_name }} -C release .
+    
+    - name: Build executable (macOS)
+      if: matrix.os == 'macos-latest'
+      run: |
+        pyinstaller --onedir --windowed --name "ImageMagick-GUI" main.py
+        mkdir release
+        cp -R dist/ImageMagick-GUI.app release/
+        cp README.md release/
+        zip -r ${{ matrix.asset_name }} release/
+    
+    - name: Upload to release (if tag)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{ matrix.asset_name }}
+        body: |
+          ## Simple GUI for ImageMagick
+          
+          Download for your platform:
+          - **Windows**: ImageMagick-GUI-Windows.zip
+          - **macOS**: ImageMagick-GUI-macOS.zip  
+          - **Linux**: ImageMagick-GUI-Linux.tar.gz
+          
+          **Requirements**: Install ImageMagick first
+          - Windows: https://imagemagick.org/script/download.php#windows
+          - macOS: `brew install imagemagick`
+          - Linux: `sudo apt install imagemagick`
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Upload artifacts (if manual run)
+      if: github.event_name == 'workflow_dispatch'
+      uses: actions/upload-artifact@v3
+      with:
+        name: ImageMagick-GUI-${{ matrix.os }}
+        path: ${{ matrix.asset_name }}
