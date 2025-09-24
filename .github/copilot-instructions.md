@@ -15,3 +15,6 @@ This project is a Python GUI application that provides a user-friendly interface
 
 ## Usage
 Run `python main.py` to start the GUI application.
+Or run the executable for your OS:
+- **macOS/Linux**: `./imagemagick-gui`
+- **Windows**: `imagemagick-gui.exe`

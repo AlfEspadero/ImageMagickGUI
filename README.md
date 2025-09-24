@@ -21,8 +21,8 @@ A simple Python GUI application that provides a user-friendly interface for Imag
 2. Download the latest release
 3. Extract the files
 4. Run the executable for your OS:
-   - **macOS/Linux**: `./imagemagick-gui`
-   - **Windows**: `imagemagick-gui.exe`
+	- **macOS/Linux**: `./imagemagick-gui`
+	- **Windows**: `imagemagick-gui.exe`
 
 ### Method 2: Install from Source
 ```bash
@@ -53,16 +53,16 @@ Download and install from [ImageMagick official website](https://imagemagick.org
 ## 🎯 **Usage**
 
 1. **Launch the application**:
-   Run the executable for your OS:
-   - **macOS/Linux**: `./imagemagick-gui`
-   - **Windows**: `imagemagick-gui.exe`
+	Run the executable for your OS:
+	- **macOS/Linux**: `./imagemagick-gui`
+	- **Windows**: `imagemagick-gui.exe`
 
 2. **Convert images**:
-   - Click "Browse" to select an input image file
-   - Choose the desired output format from the dropdown
-   - Toggle the "_converted" suffix option if desired
-   - Click "Convert" to process the image
-   - The converted file will be saved in the same directory as the input file
+	- Click "Browse" to select an input image file
+	- Choose the desired output format from the dropdown
+	- Toggle the "_converted" suffix option if desired
+	- Click "Convert" to process the image
+	- The converted file will be saved in the same directory as the input file
 
 ## 📁 **File Structure**
 ```
@@ -73,7 +73,7 @@ ImageMagickGUI/
 ├── requirements.txt           # Dependencies (none for runtime)
 ├── .gitignore                # Git ignore file
 └── .github/
-    └── copilot-instructions.md
+	 └── copilot-instructions.md
 ```
 
 ## 🐛 **Troubleshooting**

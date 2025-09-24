@@ -10,19 +10,19 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-    {name = "Alfonso Espadero", email = "contact-imagemagickGUI@alias.alfelfriki.tech"}
+	{name = "Alfonso Espadero", email = "contact-imagemagickGUI@alias.alfelfriki.tech"}
 ]
 keywords = ["imagemagick", "gui", "image", "conversion", "tkinter"]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Intended Audience :: End Users/Desktop",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Topic :: Multimedia :: Graphics :: Graphics Conversion",
-    "Topic :: Desktop Environment",
+	"Development Status :: 5 - Production/Stable",
+	"Intended Audience :: End Users/Desktop",
+	"License :: OSI Approved :: MIT License",
+	"Operating System :: OS Independent",
+	"Programming Language :: Python :: 3",
+	"Programming Language :: Python :: 3.12",
+	"Programming Language :: Python :: 3.13",
+	"Topic :: Multimedia :: Graphics :: Graphics Conversion",
+	"Topic :: Desktop Environment",
 ]
 
 # No external dependencies - uses only Python standard library
@@ -38,11 +38,3 @@ imagemagick-gui = "main:main"
 
 [tool.setuptools]
 py-modules = ["main"]
-
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=6.0",
-    "black",
-    "flake8",
-]
