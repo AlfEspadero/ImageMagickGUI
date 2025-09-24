@@ -10,13 +10,14 @@ jobs:
   build-and-release:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false  # Don't cancel other builds if one fails
       matrix:
         include:
           - os: windows-latest
             asset_name: ImageMagick-GUI-Windows.zip
           - os: ubuntu-latest
             asset_name: ImageMagick-GUI-Linux.tar.gz
-          - os: macos-latest
+          - os: macos-13  # Use specific version to avoid migration issues
             asset_name: ImageMagick-GUI-macOS.zip
 
     steps:
@@ -53,13 +54,14 @@ jobs:
         tar -czf ${{ matrix.asset_name }} -C release .
     
     - name: Build executable (macOS)
-      if: matrix.os == 'macos-latest'
+      if: matrix.os == 'macos-13'
       run: |
-        pyinstaller --onedir --windowed --name "ImageMagick-GUI" main.py
+        # Use onefile instead of onedir for simpler packaging
+        pyinstaller --onefile --windowed --name "ImageMagick-GUI" main.py
         mkdir release
-        cp -R dist/ImageMagick-GUI.app release/
+        cp dist/ImageMagick-GUI release/
         cp README.md release/
-        zip -r ${{ matrix.asset_name }} release/
+        cd release && zip -r ../${{ matrix.asset_name }} .
     
     - name: Upload to release (if tag)
       if: startsWith(github.ref, 'refs/tags/')
@@ -87,3 +89,4 @@ jobs:
       with:
         name: ImageMagick-GUI-${{ matrix.os }}
         path: ${{ matrix.asset_name }}
+        retention-days: 1
