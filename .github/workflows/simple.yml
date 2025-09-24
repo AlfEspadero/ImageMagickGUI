@@ -1,5 +1,9 @@
 name: Build and Release
 
+permissions:
+  contents: write  # Allow creating releases
+  packages: write  # Allow uploading release assets
+
 on:
   push:
     tags:
