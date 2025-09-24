@@ -20,9 +20,9 @@ jobs:
         include:
           - os: windows-latest
             asset_name: ImageMagick-GUI-Windows.zip
-          - os: ubuntu-20.04  # Use stable LTS version
+          - os: ubuntu-latest
             asset_name: ImageMagick-GUI-Linux.tar.gz
-          - os: macos-12  # Use older stable version
+          - os: macos-latest
             asset_name: ImageMagick-GUI-macOS.zip
 
     steps:
@@ -34,7 +34,7 @@ jobs:
         python-version: '3.11'  # Use slightly older Python for better compatibility
     
     - name: Install system dependencies (Linux)
-      if: matrix.os == 'ubuntu-20.04'
+      if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt-get update
         sudo apt-get install -y python3-tk
@@ -54,7 +54,7 @@ jobs:
         powershell Compress-Archive -Path release\* -DestinationPath ${{ matrix.asset_name }}
     
     - name: Build executable (Linux)
-      if: matrix.os == 'ubuntu-20.04'
+      if: matrix.os == 'ubuntu-latest'
       run: |
         pyinstaller --onefile --name "ImageMagick-GUI" main.py
         mkdir release
@@ -64,7 +64,7 @@ jobs:
         tar -czf ${{ matrix.asset_name }} -C release .
     
     - name: Build executable (macOS)
-      if: matrix.os == 'macos-12'
+      if: matrix.os == 'macos-latest'
       run: |
         pyinstaller --onefile --windowed --name "ImageMagick-GUI" main.py
         mkdir release
