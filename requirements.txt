@@ -16,9 +16,3 @@
 # macOS: brew install imagemagick
 # Ubuntu: sudo apt-get install imagemagick
 # Windows: Download from https://imagemagick.org/script/download.php
-
-# Development dependencies (optional)
-# Uncomment below for development:
-# pytest>=6.0
-# black
-# flake8
