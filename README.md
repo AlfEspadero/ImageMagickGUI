@@ -1,8 +1,5 @@
 # ImageMagick GUI Application
 
-[![CI](https://github.com/AlfEspadero/ImageMagickGUI/actions/workflows/ci.yml/badge.svg)](https://github.com/AlfEspadero/ImageMagickGUI/actions/workflows/ci.yml)
-[![Code Quality](https://github.com/AlfEspadero/ImageMagickGUI/workflows/Code%20Quality/badge.svg)](https://github.com/AlfEspadero/ImageMagickGUI/actions)
-[![Build](https://github.com/AlfEspadero/ImageMagickGUI/workflows/Build%20Executables/badge.svg)](https://github.com/AlfEspadero/ImageMagickGUI/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A simple Python GUI application that provides a user-friendly interface for ImageMagick image conversion functionality.
@@ -70,14 +67,14 @@ The application requires Python with tkinter support. If you encounter tkinter i
 
 #### Option 1: Using System Python (macOS)
 ```bash
-/usr/bin/python3 main.py
+python3 main.py
 ```
 
 #### Option 2: Using pyenv with tkinter (if available)
 ```bash
 # Install Python with tkinter support via pyenv
-pyenv install 3.11.6  # or another version with tkinter
-pyenv local 3.11.6
+pyenv install 3.13  # or another version with tkinter
+pyenv local 3.13
 python main.py
 ```
 
