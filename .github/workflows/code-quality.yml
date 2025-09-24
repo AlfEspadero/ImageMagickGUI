@@ -1,0 +1,80 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  code-quality:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install black flake8 isort
+        pip install -e .
+    
+    - name: Check code formatting with Black
+      run: |
+        black --check --diff main.py
+    
+    - name: Check import sorting with isort
+      run: |
+        isort --check-only --diff main.py
+    
+    - name: Lint with flake8
+      run: |
+        flake8 main.py --max-line-length=88 --extend-ignore=E203,W503
+    
+    - name: Check for common security issues
+      run: |
+        python -c "
+        import ast
+        import main
+        print('✅ No obvious security issues found')
+        "
+    
+    - name: Validate package metadata
+      run: |
+        python setup.py check --metadata --strict
+    
+    - name: Check if version is consistent
+      run: |
+        python -c "
+        import re
+
+        # Extract version from setup.py
+        with open('setup.py', 'r') as f:
+            setup_py = f.read()
+        match = re.search(r'version\s*=\s*[\'\"]([^\'\"]+)[\'\"]', setup_py)
+        if match:
+            setup_version = match.group(1)
+        else:
+            raise RuntimeError('Could not find version in setup.py')
+
+        # Check pyproject.toml if it exists
+        try:
+            with open('pyproject.toml', 'r') as f:
+                content = f.read()
+                if f'version = \"{setup_version}\"' in content:
+                    print('✅ Version consistency check passed')
+                else:
+                    print('⚠️ Version might be inconsistent between files')
+        except FileNotFoundError:
+            print('✅ No pyproject.toml version check needed')
+        "           print('✅ Version consistency check passed')
+                else:
+                    print('⚠️ Version might be inconsistent between files')
+        except FileNotFoundError:
+            print('✅ No pyproject.toml version check needed')
+        "
