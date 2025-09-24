@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "imagemagick-gui"
+version = "1.0.0"
+description = "A simple GUI application for ImageMagick image conversion"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Alfonso Espadero", email = "contact-imagemagickGUI@alias.alfelfriki.tech"}
+]
+keywords = ["imagemagick", "gui", "image", "conversion", "tkinter"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+    "Topic :: Desktop Environment",
+]
+
+# No external dependencies - uses only Python standard library
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/AlfEspadero/ImageMagickGUI"
+Repository = "https://github.com/AlfEspadero/ImageMagickGUI"
+Issues = "https://github.com/AlfEspadero/ImageMagickGUI/issues"
+
+[project.scripts]
+imagemagick-gui = "main:main"
+
+[tool.setuptools]
+py-modules = ["main"]
+
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "black",
+    "flake8",
+]

@@ -1,0 +1,24 @@
+# ImageMagick GUI - Requirements
+# This application uses only Python standard library modules:
+# - tkinter (GUI framework)
+# - subprocess (for ImageMagick CLI calls)
+# - threading (for non-blocking UI)
+# - pathlib (for file path handling)
+# - os (for file operations)
+
+# No external Python dependencies required!
+# 
+# System Requirements:
+# - Python 3.8+ with tkinter support
+# - ImageMagick CLI tool installed on system
+#
+# Install ImageMagick:
+# macOS: brew install imagemagick
+# Ubuntu: sudo apt-get install imagemagick
+# Windows: Download from https://imagemagick.org/script/download.php
+
+# Development dependencies (optional)
+# Uncomment below for development:
+# pytest>=6.0
+# black
+# flake8
